@@ -1,4 +1,5 @@
 import "@fontsource/inter";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import GlobalStyled from "../src/styles/GlobalStyled";
 import theme from "../src/styles/theme";
@@ -16,10 +17,12 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyled />
-        <Story />
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <GlobalStyled />
+          <Story />
+        </ThemeProvider>
+      </BrowserRouter>
     </>
   ),
 ];

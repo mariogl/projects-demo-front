@@ -6,6 +6,7 @@ const HeaderStyled = styled.header`
   height: 4rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: ${({ theme: { distances } }) =>
     `${distances.containers.padding.vertical} ${distances.containers.padding.horizontal}`};
 `;
