@@ -8,3 +8,8 @@ export interface ProjectStructure {
   };
   technologies: string[];
 }
+
+export interface UserStructure {
+  id: string;
+  username: string;
+}

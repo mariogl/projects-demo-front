@@ -7,12 +7,13 @@ const TextField = ({
   caption,
   inline,
   error,
+  type = "text",
   ...props
 }: TextFieldProps): JSX.Element => {
   return (
     <TextFieldStyled inline={inline} error={error} {...props}>
       <label htmlFor={id}>{label}</label>
-      <input id={id} {...props} />
+      <input type={type} id={id} {...props} />
       {caption && <small>{caption}</small>}
     </TextFieldStyled>
   );

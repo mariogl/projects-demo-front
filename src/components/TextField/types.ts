@@ -1,8 +1,9 @@
 export interface TextFieldProps {
-  id?: string;
+  id: string;
   label: string;
-  caption: string;
-  inline: boolean;
-  error: boolean;
-  disabled: boolean;
+  caption?: string;
+  inline?: boolean;
+  error?: boolean;
+  disabled?: boolean;
+  type?: "text" | "password";
 }
