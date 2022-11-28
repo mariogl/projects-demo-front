@@ -30,6 +30,12 @@ declare module "styled-components" {
       inputs: {
         padding: Axes;
       };
+      buttons: {
+        padding: Axes;
+      };
+      modals: {
+        padding: Axes;
+      };
     };
   }
 }

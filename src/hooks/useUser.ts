@@ -9,16 +9,29 @@ import decodeToken from "../utils/decodeToken";
 const useUser = () => {
   const dispatch = useAppDispatch();
 
+  const saveToken = (token: string) => {
+    localStorage.setItem("token", token);
+  };
+
+  const removeToken = () => {
+    localStorage.removeItem("token");
+  };
+
   const loginUser = useCallback(
-    (token: string) => {
+    (token: string, shouldSave = false) => {
       const user = decodeToken(token);
+
+      if (shouldSave) {
+        saveToken(token);
+      }
+
       dispatch(loginActionCreator(user));
     },
     [dispatch]
   );
 
   const logoutUser = () => {
-    localStorage.removeItem("token");
+    removeToken();
 
     dispatch(logoutActionCreator());
   };

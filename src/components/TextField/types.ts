@@ -1,9 +1,9 @@
-export interface TextFieldProps {
-  id: string;
+export interface TextFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   caption?: string;
   inline?: boolean;
   error?: boolean;
-  disabled?: boolean;
-  type?: "text" | "password";
 }
+
+export type TextFieldStyledProps = Partial<TextFieldProps>;

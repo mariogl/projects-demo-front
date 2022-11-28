@@ -4,3 +4,7 @@ export const paths = {
   projectsList: "/projects",
   login: "/login",
 };
+
+export const apiEndpoints = {
+  loginUser: "users/login",
+};

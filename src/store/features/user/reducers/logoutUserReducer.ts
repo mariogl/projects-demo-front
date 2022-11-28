@@ -1,7 +1,7 @@
 import { UserState } from "../types";
 import { userInitialState } from "../userSlice";
 
-const logoutUserReducer = (currentUserState: UserState): UserState => ({
+const logoutUserReducer = (): UserState => ({
   ...userInitialState,
 });
 

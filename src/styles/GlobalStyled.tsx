@@ -18,6 +18,11 @@ const GlobalStyled = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
+
+  button, input {
+    font-size: inherit;
+    font-family: inherit;
+  }
 `;
 
 export default GlobalStyled;

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ProjectStructure } from "../../../types";
 import { loadProjectsReducer } from "./reducers/loadProjectsReducer";
 import { ProjectsState } from "./types";
 
@@ -19,14 +18,3 @@ export const projectsReducer = projectsSlice.reducer;
 
 export const { loadProjects: loadProjectsActionCreator } =
   projectsSlice.actions;
-
-const project: ProjectStructure = {
-  id: "2",
-  name: "zzzzzzz",
-  date: new Date().toISOString(),
-  student: {
-    id: "12",
-    name: "asdfjlasfd",
-  },
-  technologies: [],
-};

@@ -6,11 +6,13 @@ import {
   combineReducers,
 } from "@reduxjs/toolkit";
 import { projectsReducer } from "./features/projects/projectsSlice";
+import { uiReducer } from "./features/ui/uiSlice";
 import { userReducer } from "./features/user/userSlice";
 
 export const rootReducer = combineReducers({
   projectsState: projectsReducer,
   userState: userReducer,
+  uiState: uiReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {

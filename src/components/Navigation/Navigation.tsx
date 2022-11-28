@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { paths } from "../../paths/paths";
 import { useAppSelector } from "../../store/hooks";
 import NavigationStyled from "./NavigationStyled";

@@ -1,32 +1,54 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useUser from "../../hooks/useUser";
+import useApi from "../../hooks/useApi";
 import { paths } from "../../paths/paths";
+import { UserCredentials } from "../../types";
+import Button from "../Button/Button";
 import TextField from "../TextField/TextField";
 
 const LoginForm = (): JSX.Element => {
   const navigate = useNavigate();
-  const { loginUser } = useUser();
+  const { loginUserApi } = useApi();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const initialCredentials: UserCredentials = {
+    username: "",
+    password: "",
+  };
+
+  const [credentials, setCredentials] = useState(initialCredentials);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const apiResponse = {
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhdmUiLCJlbWFpbCI6InJhQHZlLmNvbSIsImlkIjoiNjM3MzVlMzNhYWIwN2VjMjUzNzhlOGQxIiwiaWF0IjoxNjY4NTA1MjM4fQ.0Mqf-bDe60thfLz4yyO83nLlM1V_HmwPgOcLO8ucv0A",
-    };
+    if (await loginUserApi(credentials)) {
+      navigate(paths.projectsList);
+    }
+  };
 
-    localStorage.setItem("token", apiResponse.token);
-
-    loginUser(apiResponse.token);
-
-    navigate(paths.projectsList);
+  const changeCredentials = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentials({
+      ...credentials,
+      [event.target.id]: event.target.value,
+    });
   };
 
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-      <TextField type="text" id="username" label="Your username" />
-      <TextField type="password" id="password" label="Your password" />
-      <button type="submit">Login</button>
+      <TextField
+        type="text"
+        id="username"
+        label="Your username"
+        onChange={changeCredentials}
+      />
+      <TextField
+        type="password"
+        id="password"
+        label="Your password"
+        onChange={changeCredentials}
+      />
+      <Button type="submit" variant="primary" block={true}>
+        Login
+      </Button>
     </form>
   );
 };

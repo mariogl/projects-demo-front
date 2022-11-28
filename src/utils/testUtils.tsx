@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { AppStore, RootState, setupStore } from "../store/store";
+import GlobalStyled from "../styles/GlobalStyled";
 import mainTheme from "../styles/theme";
 
 interface ExtendedRenderOptions extends RenderOptions {
@@ -27,7 +28,10 @@ const renderWithProviders = (
 ) => {
   const Router = ({ children }: PropsWithChildren): JSX.Element => {
     return initialEntries ? (
-      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      <MemoryRouter initialEntries={initialEntries}>
+        <GlobalStyled />
+        {children}
+      </MemoryRouter>
     ) : (
       <BrowserRouter>{children}</BrowserRouter>
     );
