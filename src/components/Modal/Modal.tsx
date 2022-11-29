@@ -1,21 +1,27 @@
 import { useCallback, useEffect } from "react";
 import { closeModalActionCreator } from "../../store/features/ui/uiSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import Button from "../Button/Button";
 import ModalStyled from "./ModalStyled";
 
 let timer: number;
 
-const Modal = (): JSX.Element => {
-  const {
-    modal: { text, subtext },
-  } = useAppSelector((state) => state.uiState);
+interface ModalProps {
+  text: string;
+  subtext: string;
+  onClose?: () => void;
+}
+
+const Modal = ({ text, subtext, onClose }: ModalProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const closeModal = useCallback(() => {
     dispatch(closeModalActionCreator());
+    if (onClose) {
+      onClose();
+    }
     clearTimeout(timer);
-  }, [dispatch]);
+  }, [dispatch, onClose]);
 
   useEffect(() => {
     timer = window.setTimeout(() => {

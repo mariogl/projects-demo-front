@@ -42,9 +42,7 @@ describe("Given an useApi hook", () => {
       expect(mockLoginUser).not.toHaveBeenCalled();
       expect(mockDispatch).toHaveBeenCalledWith(
         openModalActionCreator({
-          isError: true,
-          text: "We couldn't log you in",
-          subtext: "Wrong credentials",
+          type: "registerOk",
         })
       );
     });

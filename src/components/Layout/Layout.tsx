@@ -1,10 +1,4 @@
-import {
-  Routes,
-  Route,
-  Navigate,
-  useRoutes,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ProjectsPage from "../../pages/ProjectsPage/ProjectsPage";
 import { paths } from "../../paths/paths";
 import Header from "../Header/Header";
@@ -13,11 +7,9 @@ import HomePage from "../../pages/HomePage/HomePage";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import AntiManolitaRoute from "../AntiManolitaRoute/AntiManolitaRoute";
-import Modal from "../Modal/Modal";
-import { useAppSelector } from "../../store/hooks";
+import ModalComposer from "../ModalComposer/ModalComposer";
 
 const Layout = (): JSX.Element => {
-  const modal = useAppSelector((state) => state.uiState.modal);
   const { pathname } = useLocation();
 
   const isCentered = pathname === paths.login;
@@ -47,7 +39,7 @@ const Layout = (): JSX.Element => {
           />
         </Routes>
       </ContainerStyled>
-      {modal.isOpen && <Modal />}
+      <ModalComposer />
     </>
   );
 };

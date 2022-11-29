@@ -7,4 +7,5 @@ export const paths = {
 
 export const apiEndpoints = {
   loginUser: "users/login",
+  getProjects: "projects",
 };

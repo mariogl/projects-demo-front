@@ -11,6 +11,13 @@ const NavigationStyled = styled.nav`
   .active {
     font-weight: bold;
   }
+
+  button {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
 `;
 
 export default NavigationStyled;

@@ -1,11 +1,10 @@
 import axios, { AxiosError } from "axios";
+import { useCallback } from "react";
 import { apiEndpoints } from "../paths/paths";
-import {
-  closeModalActionCreator,
-  openModalActionCreator,
-} from "../store/features/ui/uiSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { UserCredentials } from "../types";
+import { loadProjectsActionCreator } from "../store/features/projects/projectsSlice";
+import { openModalActionCreator } from "../store/features/ui/uiSlice";
+import { useAppDispatch } from "../store/hooks";
+import { ProjectStructure, UserCredentials } from "../types";
 import useUser from "./useUser";
 
 const useApi = () => {
@@ -25,25 +24,9 @@ const useApi = () => {
 
       return true;
     } catch (error: unknown) {
-      if (
-        (error as AxiosError).response?.status === 400 ||
-        (error as AxiosError).response?.status === 401
-      ) {
-        dispatch(
-          openModalActionCreator({
-            isError: true,
-            text: "We couldn't log you in",
-            subtext: "Wrong credentials",
-          })
-        );
-        return false;
-      }
-
       dispatch(
         openModalActionCreator({
-          isError: true,
-          text: "Error on login",
-          subtext: "Please try again in a few minutes",
+          type: "loginError",
         })
       );
 
@@ -51,8 +34,38 @@ const useApi = () => {
     }
   };
 
+  const getProjectsApi = useCallback(async (): Promise<boolean> => {
+    try {
+      const { data } = await axios.get<{ projects: ProjectStructure[] }>(
+        process.env.REACT_APP_API_URL + apiEndpoints.getProjects
+      );
+
+      dispatch(loadProjectsActionCreator(data.projects));
+
+      return true;
+    } catch (error: unknown) {
+      if ((error as AxiosError).response?.status === 401) {
+        dispatch(
+          openModalActionCreator({
+            type: "noAuth",
+          })
+        );
+        return false;
+      }
+
+      dispatch(
+        openModalActionCreator({
+          type: "projectsError",
+        })
+      );
+
+      return false;
+    }
+  }, [dispatch]);
+
   return {
     loginUserApi,
+    getProjectsApi,
   };
 };
 

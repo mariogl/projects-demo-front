@@ -1,18 +1,17 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+import { ModalType } from "../../../../components/ModalComposer/ModalComposer";
 import { UiState } from "../types";
 
 export const openModalReducer = (
   currentUiState: UiState,
-  action: PayloadAction<{ isError: boolean; text: string; subtext: string }>
+  action: PayloadAction<{ type: ModalType }>
 ): UiState => {
   return {
     ...currentUiState,
     modal: {
       ...currentUiState.modal,
       isOpen: true,
-      isError: action.payload.isError,
-      text: action.payload.text,
-      subtext: action.payload.subtext,
+      type: action.payload.type,
     },
   };
 };
@@ -23,9 +22,7 @@ export const closeModalReducer = (currentUiState: UiState): UiState => {
     modal: {
       ...currentUiState.modal,
       isOpen: false,
-      isError: false,
-      text: "",
-      subtext: "",
+      type: null,
     },
   };
 };

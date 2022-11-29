@@ -27,23 +27,25 @@ const renderWithProviders = (
   }: ExtendedRenderOptions = {}
 ) => {
   const Router = ({ children }: PropsWithChildren): JSX.Element => {
+    debugger;
     return initialEntries ? (
-      <MemoryRouter initialEntries={initialEntries}>
-        <GlobalStyled />
-        {children}
-      </MemoryRouter>
+      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
     ) : (
       <BrowserRouter>{children}</BrowserRouter>
     );
   };
 
   const Wrapper = ({ children }: PropsWithChildren): JSX.Element => {
+    debugger;
     return (
-      <Provider store={store}>
-        <Router>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </Router>
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyled />
+            {children}
+          </ThemeProvider>
+        </Provider>
+      </Router>
     );
   };
 

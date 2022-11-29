@@ -5,11 +5,9 @@ const uiStateFactory = Factory.define<UiState>(() => ({
   isLoading: true,
   modal: {
     isOpen: true,
-    isError: true,
-    text: "",
-    subtext: "",
+    type: "registerOk",
   },
 }));
 
-export const getUiState = (data?: Partial<UiState>) =>
+export const getMockUiState = (data?: Partial<UiState>) =>
   uiStateFactory.build(data);

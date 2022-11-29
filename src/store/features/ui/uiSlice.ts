@@ -6,9 +6,7 @@ export const initialUiState: UiState = {
   isLoading: false,
   modal: {
     isOpen: false,
-    isError: false,
-    text: "Oops! Something went wrong",
-    subtext: "Please try again later",
+    type: null,
   },
 };
 

@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { getUiState } from "../../factories/states/uiState";
+import { getMockUiState } from "../../factories/states/uiState";
 import renderWithProviders from "../../utils/testUtils";
 import Modal from "./Modal";
 
@@ -22,7 +22,7 @@ afterEach(() => {
 describe("Given a Modal component", () => {
   describe("When it's rendered", () => {
     test("Then it should show a button with 'Okay' inside", () => {
-      renderWithProviders(<Modal />);
+      renderWithProviders(<Modal text="" subtext="" />);
 
       const button = screen.queryByRole("button", { name: /okay/i });
 
@@ -30,7 +30,7 @@ describe("Given a Modal component", () => {
     });
 
     test("Then it should call window.clearTimeout when time runs out", () => {
-      renderWithProviders(<Modal />);
+      renderWithProviders(<Modal text="" subtext="" />);
 
       expect(clearTimeout).not.toHaveBeenCalled();
 
@@ -45,18 +45,14 @@ describe("Given a Modal component", () => {
       const expectedText = "Hi! I'm a modal";
       const expectedSubtext = "bye!";
 
-      renderWithProviders(<Modal />, {
-        preloadedState: {
-          uiState: getUiState({
-            modal: {
-              text: expectedText,
-              subtext: expectedSubtext,
-              isError: true,
-              isOpen: true,
-            },
-          }),
-        },
-      });
+      renderWithProviders(
+        <Modal text={expectedText} subtext={expectedSubtext} />,
+        {
+          preloadedState: {
+            uiState: getMockUiState(),
+          },
+        }
+      );
 
       const text = screen.queryByText(expectedText);
       const subtext = screen.queryByText(expectedSubtext);

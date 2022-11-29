@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useCallback } from "react";
 import {
   loginActionCreator,
@@ -26,6 +27,8 @@ const useUser = () => {
       }
 
       dispatch(loginActionCreator(user));
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     },
     [dispatch]
   );
@@ -34,6 +37,8 @@ const useUser = () => {
     removeToken();
 
     dispatch(logoutActionCreator());
+
+    delete axios.defaults.headers.common["Authorization"];
   };
 
   const checkToken = useCallback((): void => {
