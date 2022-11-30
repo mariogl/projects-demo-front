@@ -1,0 +1,21 @@
+name: Testing E2E
+
+on: push
+
+jobs:
+  test:
+    name: E2E Tests passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Install modules
+        run: npm ci
+
+      - name: Testing
+        run: npm run test:e2e
+
+env:
+  CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}

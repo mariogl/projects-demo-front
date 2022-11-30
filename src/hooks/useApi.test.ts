@@ -1,4 +1,6 @@
 import { renderHook } from "@testing-library/react";
+import { getMockProjects } from "../factories/projects";
+import { loadProjectsActionCreator } from "../store/features/projects/projectsSlice";
 import { openModalActionCreator } from "../store/features/ui/uiSlice";
 import { UserCredentials } from "../types";
 import useApi from "./useApi";
@@ -15,13 +17,14 @@ jest.mock("./useUser", () => () => ({
 }));
 
 describe("Given an useApi hook", () => {
+  const { result } = renderHook(() => useApi());
+
   describe("When its function loginUserApi is called with Luis' right credentials", () => {
     test("Then it should call loginUser", async () => {
       const userCredentials: UserCredentials = {
         username: "luis",
         password: "1234",
       };
-      const { result } = renderHook(() => useApi());
 
       await result.current.loginUserApi(userCredentials);
 
@@ -35,16 +38,26 @@ describe("Given an useApi hook", () => {
         username: "marta",
         password: "1234",
       };
-      const { result } = renderHook(() => useApi());
 
       await result.current.loginUserApi(userCredentials);
 
       expect(mockLoginUser).not.toHaveBeenCalled();
       expect(mockDispatch).toHaveBeenCalledWith(
         openModalActionCreator({
-          type: "registerOk",
+          type: "loginError",
         })
       );
+    });
+  });
+
+  describe("When its function getProjectsApi is called", () => {
+    test.only("Then it should call dispatch with load projects action with two projects", async () => {
+      const mockProjects = getMockProjects();
+      const expectedAction = loadProjectsActionCreator(mockProjects);
+
+      await result.current.getProjectsApi();
+
+      expect(mockDispatch).toHaveBeenCalledWith(expectedAction);
     });
   });
 });

@@ -5,7 +5,7 @@ import Layout from "./Layout";
 import { paths } from "../../paths/paths";
 import renderWithProviders from "../../utils/testUtils";
 import { PreloadedState } from "@reduxjs/toolkit";
-import { getProjects } from "../../factories/projects";
+import { getMockRandomProjects } from "../../factories/projects";
 
 describe("Given a Layout component", () => {
   describe("When the user is logged in", () => {
@@ -16,7 +16,7 @@ describe("Given a Layout component", () => {
         username: "",
       },
       projectsState: {
-        projects: getProjects(3),
+        projects: getMockRandomProjects(3),
       },
     };
 

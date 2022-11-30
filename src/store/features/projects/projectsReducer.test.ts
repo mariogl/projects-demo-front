@@ -1,4 +1,4 @@
-import { getProjects } from "../../../factories/projects";
+import { getMockRandomProjects } from "../../../factories/projects";
 import { loadProjectsActionCreator, projectsReducer } from "./projectsSlice";
 import { ProjectsState } from "./types";
 
@@ -8,7 +8,7 @@ describe("Given a projectsReducer reducer", () => {
       const currentProjectsState: ProjectsState = {
         projects: [],
       };
-      const projects = getProjects();
+      const projects = getMockRandomProjects();
       const action = loadProjectsActionCreator(projects);
 
       const newProjectsState = projectsReducer(currentProjectsState, action);
@@ -19,7 +19,7 @@ describe("Given a projectsReducer reducer", () => {
 
   describe("When it receives two projects and an unknown action", () => {
     test("Then it should return the two received projects", () => {
-      const projects = getProjects(2);
+      const projects = getMockRandomProjects(2);
       const currentProjectsState: ProjectsState = {
         projects,
       };

@@ -13,7 +13,18 @@ const projectFactory = Factory.define<ProjectStructure>(() => ({
   },
 }));
 
-export const getProject = (data: Partial<ProjectStructure>) =>
+export const getMockRandomProject = (data: Partial<ProjectStructure>) =>
   projectFactory.build(data);
 
-export const getProjects = (number = 2) => projectFactory.buildList(number);
+export const getMockRandomProjects = (number = 2) =>
+  projectFactory.buildList(number);
+
+export const getMockProject = () =>
+  projectFactory.build({
+    name: "Testing project 1",
+  });
+
+export const getMockProjects = () => [
+  projectFactory.build({ name: "Testing project 1" }),
+  projectFactory.build({ name: "Testing project 2" }),
+];
